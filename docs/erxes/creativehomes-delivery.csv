@@ -1,0 +1,3 @@
+﻿code,name,category code,type,unit price,source
+CH-DELIVERY-city,"Хүргэлт: Улаанбаатар (бүс, овор хэмжээнээс хамаарна)",CH-DELIVERY,service,0,Zochil delivery rule: fee paid to the courier on arrival; amounts are an open question
+CH-DELIVERY-cargo,Карго (захиалгын бараа),CH-DELIVERY,service,0,Zochil terms: cargo paid on receipt; amount set per order
