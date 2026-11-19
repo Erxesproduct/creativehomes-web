@@ -50,3 +50,27 @@ Steps:
    (the same id the website sends with every order line), unit price in MNT, kind in its own column.
 4. Upload product photos in erxes only if staff need them there; the website serves its own copies.
 5. Spot-check 10 products (price, variant name) against creativehomes.mn.
+
+## 1.2 Payment (QPay and bank transfer)
+
+On Zochil the payment rule is «Төлбөрийг захиалга баталгаажуулах үед бүрэн төлнө. Төлбөрийг банкны данс, QPAY болон
+бусад аргаар хийж болно.» `has_qpay` is on, but **all four Zochil methods (QPay2, StorePay, Pocket, Sono) are
+`disabled`** (open question 1). The website offers:
+
+- **QPay** through erxes: `generateInvoiceUrl` (public) creates the invoice after the order is saved in erxes; the
+  customer pays on the erxes payment page and returns to `/order/<reference>`, where `invoicesCheck` is asked every 5 s.
+- **Bank transfer**: the order page shows Хаан банк 5040557036 and the order code `CH-…` to write in the transfer,
+  with copy buttons. Staff confirm it by hand.
+- **Leasing apps** (PocketZero, StorePay, Sono, LendMN, Simple, from the shop banner): shown on /info and in the
+  checkout as "call us"; they are not taken online (open question 2).
+- The online total is **the goods only**: the delivery fee is paid to the courier (1.4).
+- No order is sent to QPay unless it was first recorded in erxes (no money asked for an order staff cannot see).
+
+Steps:
+
+1. Get Creative Homes' QPay merchant credentials (`client_id`, `client_secret`, `invoice_code`).
+2. **Settings → Payments → Add → QPay (v2)**: enter them. Make a 100₮ test invoice in erxes.
+3. Copy the payment method's `_id` into Vercel as `ERXES_PAYMENT_IDS`.
+4. Bank transfer: staff check the Khan Bank statement for the `CH-…` code and move the card to «Баталгаажсан».
+5. **Not yet tested**: nothing has been run against a real QPay merchant. Do not call payments working until step 2
+   and section 1.5 pass with authorized credentials.
