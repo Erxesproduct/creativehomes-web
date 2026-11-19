@@ -1,0 +1,35 @@
+﻿code,name,parent code
+CH,Creative Homes,
+CH-FURNITURE,Тавилга,CH
+CH-FURNITURE-1,"Ширээ, сандал",CH-FURNITURE
+CH-FURNITURE-2,Тавиур,CH-FURNITURE
+CH-FURNITURE-3,Тумбо,CH-FURNITURE
+CH-LIGHTING,Гэрэл,CH
+CH-LIGHTING-1,Ширээний гэрэл,CH-LIGHTING
+CH-LIGHTING-2,Шалны гэрэл,CH-LIGHTING
+CH-DECOR,Декор,CH
+CH-DECOR-1,Шинэ жил,CH-DECOR
+CH-STORAGE,"Хадгалах сав, сагс",CH
+CH-RUGS,"Хивс, хивсэнцэр",CH
+CH-PLANTS,Хиймэл ургамал,CH
+CH-BEDDING,Ор хөнжлийн даавуу,CH
+CH-BEDDING-1,Нимгэн хөнжил,CH-BEDDING
+CH-BEDDING-2,Буйдангийн бүтээлэг,CH-BEDDING
+CH-BEDDING-3,Цагаан хэрэглэл,CH-BEDDING
+CH-BEDDING-4,Дэр,CH-BEDDING
+CH-KITCHEN,Гал тогоо,CH
+CH-KITCHEN-1,Аяга таваг,CH-KITCHEN
+CH-KITCHEN-2,"Хундага, стакан",CH-KITCHEN
+CH-KITCHEN-3,Тогоо,CH-KITCHEN
+CH-KITCHEN-4,Бусад,CH-KITCHEN
+CH-KITCHEN-5,"Халбага, сэрээ",CH-KITCHEN
+CH-KITCHEN-6,Гамбанз,CH-KITCHEN
+CH-BATH,Угаалгын өрөө,CH
+CH-KIDS,Хүүхдэд,CH
+CH-KIDS-1,Бусад,CH-KIDS
+CH-KIDS-2,Тавилга,CH-KIDS
+CH-KIDS-3,Аяга таваг,CH-KIDS
+CH-HOME,Гэр ахуй,CH
+CH-ELECTRIC,Цахилгаан бараа,CH
+CH-OTHER,Бусад,CH
+CH-DELIVERY,Хүргэлт,CH
