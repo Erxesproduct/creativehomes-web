@@ -86,3 +86,29 @@ the server) and writes it on the order. The receipt is issued in erxes by staff 
 3. **Settings → eBarimt**: PosAPI URL, TIN, district code, VAT switches; assign it to the website pipeline.
 4. For every paid order: issue the receipt once (check the card first) and send the lottery number by SMS / email.
    The receipt covers the goods; the courier's delivery fee is outside it unless the shop decides otherwise.
+
+## 1.4 Delivery zones, fees and order statuses
+
+Website (done), from the Zochil delivery rule and terms, word for word:
+
+| Rule | Website |
+| --- | --- |
+| «Бэлэн бараа 24–72 цагийн дотор таны өгсөн хаягт хүргэгдэнэ.» | badge «Бэлэн», 24–72 цаг |
+| «Захиалгын бараа … 7–28 хоног», «захиалга ирсний дараа мөн 24–72 цагийн дотор» | badge «Захиалгаар», 7–28 хоног |
+| «Хүргэлтийн төлбөр нь бүсээс … овор хэмжээнээс хамааран өөр өөр … хүргэлтийн ажилтанд» | no fee online; the checkout and the order say «хүлээн авахдаа ажилтанд» |
+| Карго «хүлээн авахдаа» (terms) | shown for to-order items |
+| No return or cancellation after confirmation; terms must be accepted (`terms_agreement_required`) | required checkbox, checked on the server |
+| Countryside switch on, but no option or fee | not offered online; the site asks to call (open question 3) |
+
+- Fees and rules live in `src/content/business.ts`; change them there and in the erxes delivery products.
+
+erxes:
+
+1. Import `docs/erxes/creativehomes-delivery.csv` (`CH-DELIVERY-city`, `CH-DELIVERY-cargo`, both 0₮ placeholders until
+   the amounts are known, open question 4).
+2. **Sales → Boards → «Онлайн захиалга» → pipeline «Вэбсайт»**, stages (as on the website order page):
+   Хүлээгдэж байна → Баталгаажсан → Захиалга хийгдсэн → Бараа ирсэн → Хүргэлтэд гарсан → Хүргэгдсэн, plus Цуцлагдсан.
+   Ready-stock orders skip «Захиалга хийгдсэн» and «Бараа ирсэн».
+3. **Frontline → Forms → (order form) → Settings**: create a sales card in «Хүлээгдэж байна» for every submission.
+   Staff move it to «Баталгаажсан» when the QPay invoice shows paid or the transfer arrives.
+4. SMS / call templates for «Бараа ирсэн» (the terms promise a message to the registered phone).
