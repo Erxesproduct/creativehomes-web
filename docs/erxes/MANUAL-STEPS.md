@@ -112,3 +112,53 @@ erxes:
 3. **Frontline → Forms → (order form) → Settings**: create a sales card in «Хүлээгдэж байна» for every submission.
    Staff move it to «Баталгаажсан» when the QPay invoice shows paid or the transfer arrives.
 4. SMS / call templates for «Бараа ирсэн» (the terms promise a message to the registered phone).
+
+## 1.5 Test order from cart to receipt
+
+**Verified on a local production build:** `npm run test:order -- http://127.0.0.1:3072` (see the PR for the count and
+output): empty cart, unknown product, numeric id, stock limit, quantity limit, the browser's price ignored, no
+delivery fee online, a variant priced by its own id, a ready item, terms required, countryside refused, district /
+khoroo / address, QPay and transfer accepted, unknown payment refused, phone, email, company registry, same checkout
+key → same reference, honeypot, payment check 400 / 503. Without erxes the API answers `503 not_configured`, after
+which the checkout shows the phone number and keeps the cart. `--send` was **not run** (env vars not set). No payment
+was made.
+
+Steps for the real test (authorized credentials only):
+
+1. **Frontline → Forms → Create** «Вэбсайт захиалга» with fields Нэр, Утас, Имэйл, Захиалга; copy the form id and the
+   field ids into `ERXES_ORDER_FORM_ID` / `ERXES_ORDER_FIELD_IDS`. Set `ERXES_API_URL`, `ERXES_PAYMENT_IDS`. Redeploy.
+2. `npm run test:order -- https://<production url> --send`: one order, two items.
+3. Pay the invoice only with QPay's test merchant or with explicit authorization for a real charge; check that
+   `/order/<reference>` shows «Төлбөр төлөгдлөө», move the card, issue the eBarimt, mark delivered, void the test.
+
+## Permissions (erxes)
+
+- Staff who handle orders: Sales (cards), Forms (submissions), Payments (view invoices), eBarimt (issue).
+- Only the owner: Settings → Payments, Settings → eBarimt, product import.
+- The website uses only public erxes mutations; it needs no admin token.
+
+---
+
+## Open questions for Creative Homes
+
+1. **Payment**: all Zochil methods are disabled. Which QPay merchant should erxes use? Is bank transfer to
+   Хаан банк 5040557036 still right (the site offers both)?
+2. **Leasing** (PocketZero, StorePay, Sono, LendMN, Simple): the site says "call us". Should any be taken online?
+3. **Countryside**: the Zochil switch is on, but there is no option or fee. Courier, bus, cargo?
+4. **Delivery fee** amounts by zone and size: the site takes none online (the courier collects it). Should a fee or
+   a table be shown?
+5. **Ready vs to-order**: only 5 products are in «Бэлэн бараа»; 4 products are in both trees; 47 had no category and
+   were grouped by their name. Please check the groups.
+6. **Option values** like «1», «2», «3» point at the photos (colour by picture). Real colour names?
+7. **Stock**: Zochil counts stock per product, not per variant, and many products show 1. Is stock real, or should
+   to-order goods be unlimited?
+8. **TIN / PosAPI** for eBarimt; the Zochil shop has no registry number.
+9. **Domain**: point creativehomes.mn at the new site when ready.
+10. **Exposed credentials**: rotate the Pocket and Sono credentials (see the warning at the top).
+11. **Sizes** like «128×80» have no unit (cm?).
+12. **Christmas items** are seasonal: hide them after the season?
+13. **Price 5₮**: «Гоёлын ваар» (Zochil 742551) is priced 5₮ on Zochil, and the site shows that price. Fix it on
+    Zochil / in erxes before taking online payments.
+14. **More photos**: the site shows the first 3 gallery photos per product (plus every variant photo) so the whole
+    site fits one Vercel Hobby upload (100 MB). For all photos: a Vercel Pro plan or an image host (for example erxes
+    file storage).
