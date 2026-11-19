@@ -74,3 +74,15 @@ Steps:
 4. Bank transfer: staff check the Khan Bank statement for the `CH-…` code and move the card to «Баталгаажсан».
 5. **Not yet tested**: nothing has been run against a real QPay merchant. Do not call payments working until step 2
    and section 1.5 pass with authorized credentials.
+
+## 1.3 eBarimt
+
+The website never makes a receipt. The checkout asks «Хувь хүн» or «Байгууллага» (7-digit registry number, checked on
+the server) and writes it on the order. The receipt is issued in erxes by staff (or the POS) after payment.
+
+1. Collect from Creative Homes: company name and TIN (Zochil has none), district code, VAT status (all Zochil
+   products have VAT off), product classification codes (furniture, lighting, kitchenware, textiles…).
+2. Register for **PosAPI 3.0** (ebarimt.mn) and install the PosAPI service.
+3. **Settings → eBarimt**: PosAPI URL, TIN, district code, VAT switches; assign it to the website pipeline.
+4. For every paid order: issue the receipt once (check the card first) and send the lottery number by SMS / email.
+   The receipt covers the goods; the courier's delivery fee is outside it unless the shop decides otherwise.
